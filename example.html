@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<title>大肥鱼插件 · 示例页</title>
+<!-- 唯一需要的一行：引入插件脚本，宠物自动出现在页面 -->
+<script defer src="dafeiyu-pet.js"></script>
+<style>
+  body { font-family: sans-serif; margin: 0; padding: 40px; background: #f6f8fb; }
+  .card { max-width: 720px; margin: 0 auto; background: #fff; border-radius: 12px;
+          padding: 32px 40px; box-shadow: 0 2px 12px rgba(0,0,0,.08); }
+  h1 { font-size: 22px; } pre { background:#0d1117; color:#c9d1d9; padding:14px 16px;
+       border-radius:8px; font-size:13px; overflow:auto; }
+  button { padding: 8px 16px; border-radius: 8px; border: 1px solid #888;
+           background: #fff; cursor: pointer; margin: 4px 8px 4px 0; font-size: 14px; }
+</style>
+</head>
+<body>
+<div class="card">
+  <h1>🐟 大肥鱼网页宠物插件 · 示例</h1>
+  <p>这个页面模拟"其他网站接入插件"的场景：整页只多了一行
+     <code>&lt;script defer src="dafeiyu-pet.js"&gt;&lt;/script&gt;</code>，
+     宠物就出现了。你可以正常浏览、点按钮、滚页面，鱼在底部自己溜达。</p>
+
+  <h2>插件用法（就这两行）</h2>
+  <pre>&lt;!-- images/ 目录与脚本同级放置 --&gt;
+&lt;script defer src="dafeiyu-pet.js"&gt;&lt;/script&gt;</pre>
+
+  <h2>可选配置</h2>
+  <pre>&lt;script defer src="dafeiyu-pet.js"
+        data-pet-config='{ "speed": 2, "floorOffset": 40 }'&gt;&lt;/script&gt;</pre>
+
+  <h2>JS 控制（本页演示按钮）</h2>
+  <button onclick="DafeiyuPet.getInstance().say('咕噜咕噜～')">让它说话</button>
+  <button onclick="togglePet()">移除 / 恢复</button>
+  <button onclick="DafeiyuPet.init({ speed: 3 })">重复 init（幂等验证）</button>
+
+  <p style="color:#888">滚动内容区 ↓</p>
+  <p style="height:1200px;line-height:2">
+    正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文。<br>
+    宠物是 fixed 定位，滚动页面它始终贴在浏览器窗口底部，不会被滚走。
+  </p>
+</div>
+
+<script>
+  var removed = false;
+  function togglePet() {
+    if (!removed) { DafeiyuPet.destroy(); removed = true; }
+    else { DafeiyuPet.init(); removed = false; }
+  }
+</script>
+</body>
+</html>
